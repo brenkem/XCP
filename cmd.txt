@@ -1,0 +1,4 @@
+# XCP daemon (xcpd)
+
+## compile
+g++ -IXCPLib xcpd.cpp build/Debug/libXCP.so -o xcpd
