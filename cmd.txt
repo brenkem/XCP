@@ -1,5 +1,8 @@
 # XCP daemon (xcpd)
 
+## build XCP library
+make sub-XCPLib-XCPLib-pro
+
 ## compile
 g++ -IXCPLib xcpd.cpp build/Debug/libXCP.so -o xcpd
 

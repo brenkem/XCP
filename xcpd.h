@@ -1,5 +1,10 @@
+#pragma once
+
 #include <XCPMaster.h>
-#include <ResponsePacket.h>
-//#include "IncomingHandlerExternal.h"
-#include <map>
-//#include "SeriesProperties.h"
+
+
+XCPMaster* master;
+std::vector<uint8_t> bytes;
+int MaxRecvsize = 0xff;
+
+void Send(int s, struct sockaddr_in servaddr, XCPMsgPtr message);
