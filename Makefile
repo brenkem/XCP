@@ -25,14 +25,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = XCP1.0.0
-DISTDIR = /home/brenkem/git/XCP/.tmp/XCP1.0.0
+DISTDIR       = /home/brenkem/git/XCP/.tmp/XCP1.0.0
 SUBTARGETS    = sub-XCPLib-XCPLib-pro
 
 
-sub-XCPLib-XCPLib-pro-qmake_all:  FORCE
-	@test -d XCPLib/ || mkdir -p XCPLib/
-	cd XCPLib/ && $(QMAKE) -o Makefile /home/brenkem/git/XCP/XCPLib/XCPLib.pro
-	cd XCPLib/ && $(MAKE) -f Makefile qmake_all
 sub-XCPLib-XCPLib-pro: FORCE
 	@test -d XCPLib/ || mkdir -p XCPLib/
 	cd XCPLib/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/XCPLib/XCPLib.pro ) && $(MAKE) -f Makefile
@@ -58,9 +54,6 @@ sub-XCPLib-XCPLib-pro-uninstall_subtargets: FORCE
 make_first: sub-XCPLib-XCPLib-pro-make_first  FORCE
 all: sub-XCPLib-XCPLib-pro-all  FORCE
 clean: sub-XCPLib-XCPLib-pro-clean  FORCE
-distclean: sub-XCPLib-XCPLib-pro-distclean  FORCE
-	-$(DEL_FILE) Makefile
-	-$(DEL_FILE) .qmake.stash
 install_subtargets: sub-XCPLib-XCPLib-pro-install_subtargets FORCE
 uninstall_subtargets: sub-XCPLib-XCPLib-pro-uninstall_subtargets FORCE
 

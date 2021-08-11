@@ -14,7 +14,7 @@ The QT part of the source library was discarded and converted to a LINUX library
 ## compile example
     g++ -IXCPLib xcpd.cpp build/Debug/libXCP.so -o xcpd
 
-## execute with so
+## execute with library
     env LD_LIBRARY_PATH=build/Debug ./xcpd
 
 
