@@ -36,4 +36,3 @@ public:
 
 	virtual const std::vector<uint8_t>& GetUnlockKey() const;
 };
-

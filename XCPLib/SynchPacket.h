@@ -22,4 +22,3 @@ public:
 	static SynchResponsePacket* Deserialize(const std::vector<uint8_t>& Data, uint8_t HeaderSize);
 	virtual void Dispatch(IIncomingMessageHandler& Handler);
 };
-

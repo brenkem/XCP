@@ -6,4 +6,3 @@ public:
 	DisconnectPacket();
 	virtual ~DisconnectPacket();
 };
-

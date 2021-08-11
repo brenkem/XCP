@@ -41,4 +41,3 @@ public:
 	std::vector<IXCPPacket*> CreateUnlockPackets(const std::vector<uint8_t>& Key);
 	IXCPPacket* DeserializeIncomingFromSlave(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t TailSize, CommandPacket* LastSentCommand);
 };
-

@@ -155,7 +155,7 @@ void IncomingMessageHandler::Handle(GetSeedResponsePacket & Packet)
 	{
 		m_SeedBytes.push_back(Packet.GetSeedPart(i));
 	}
-	
+
 	m_ProcessedSeedLength += SeedPartSize;
 	m_RemainingSeedLength -= SeedPartSize;
 	GetSeedPacket* LastPacket = m_Master.GetLastSentPacket<GetSeedPacket*>();
@@ -338,4 +338,3 @@ const std::vector<uint8_t>& IncomingMessageHandler::GetUnlockKey() const
 {
 	return m_Key;
 }
-

@@ -32,4 +32,3 @@ public:
 	virtual void Dispatch(IIncomingMessageHandler& Handler);
 	static UnlockResponsePacket* Deserialize(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t TailSize);
 };
-

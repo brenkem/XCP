@@ -240,8 +240,8 @@ public:
 	enum DaqKeyByteBits
 	{
 		OPTIMISATION_TYPE_0 = 0x01, //The Optimisation_Type flags indicate the type of Optimisation Method the master preferably should use.
-		OPTIMISATION_TYPE_1 = 0x02, 
-		OPTIMISATION_TYPE_2 = 0x04, 
+		OPTIMISATION_TYPE_1 = 0x02,
+		OPTIMISATION_TYPE_2 = 0x04,
 		OPTIMISATION_TYPE_3 = 0x08, //OT3-2-1-0: 0000: OM_DEFAULT | 0001: OM_ODT_TYPE_16 | 0010: OM_ODT_TYPE_32 | 0011: OM_ODT_TYPE_64 | 0100: OM_ODT_TYPE_ALIGNMENT | 0101: OM_MAX_ENTRY_SIZE
 
 		OPTIMISATION_TYPE = 0x0F, ////the 4 entries before this one, only that it is combined into one

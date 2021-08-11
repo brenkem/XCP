@@ -8,4 +8,3 @@ public:
 	virtual ~ErrorCommandUnknown();
 	virtual void Dispatch(IIncomingMessageHandler& Handler);
 };
-

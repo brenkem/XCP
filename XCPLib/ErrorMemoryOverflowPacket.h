@@ -8,4 +8,3 @@ public:
 	virtual ~ErrorMemoryOverflowPacket();
 	virtual void Dispatch(IIncomingMessageHandler& Handler);
 };
-

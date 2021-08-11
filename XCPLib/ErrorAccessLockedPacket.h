@@ -13,4 +13,3 @@ public:
 	virtual ~ErrorAccessLockedPacket();
 	virtual void Dispatch(IIncomingMessageHandler& Handler);
 };
-

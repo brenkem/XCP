@@ -14,4 +14,3 @@ public:
 	ConnectPacket(ConnectMode cm);
 	virtual ~ConnectPacket();
 };
-

@@ -8,4 +8,3 @@ public:
 	virtual ~ErrorSequencePacket();
 	virtual void Dispatch(IIncomingMessageHandler& Handler);
 };
-

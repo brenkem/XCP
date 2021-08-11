@@ -29,7 +29,7 @@ public:
 	enum CommModeBasicBits
 	{
         COMM_BYTE_ORDER				= 0x1,	//Byte order for multibyte parameters. 0 = Little endian (Intel format), 1 = Big Endian (Motorola format)
-		ADDRESS_GRANULARITY_0	= 0x2,	//The address granularity indicates the size of an element 
+		ADDRESS_GRANULARITY_0	= 0x2,	//The address granularity indicates the size of an element
 		ADDRESS_GRANULARITY_1	= 0x4,	//The address granularity indicates the size of an element: 00-byte, 01-word, 10-DWORD, 11-reserved
 		ADDRESS_GRANULARITY_BOTH = 0x6,
 		SLAVE_BLOCK_MODE		= 0x40, //Inidicates if slave block mode is available
@@ -53,4 +53,3 @@ public:
 	static ConnectPositivePacket* Deserialize(const std::vector<uint8_t>& Data, uint8_t HeaderSize);
 	virtual void Dispatch(IIncomingMessageHandler& Handler);
 };
-

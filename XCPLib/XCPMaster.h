@@ -62,7 +62,6 @@ public:
 			uint16_t MaxDaq;
 			uint16_t MaxEventChannel;
 			uint8_t MinDaq;
-			
 		}DaqProperies;
 	};
 
@@ -72,7 +71,7 @@ private:
 	std::queue<CommandPacket*> m_SentCommandQueue;
 	IIncomingMessageHandler* m_MessageHandler;
 	IIncomingMessageHandler* m_ExternalHandler;
-	SlaveProperties m_SlaveProperties;	
+	SlaveProperties m_SlaveProperties;
 	DAQLayout m_DAQLayout;
 
 	XCP_GetAvailablePrivilegesPtr_t m_GetAvailablePrivileges = nullptr;

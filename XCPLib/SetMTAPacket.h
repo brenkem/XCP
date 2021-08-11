@@ -17,4 +17,3 @@ public:
 	uint32_t GetAddress(bool LittleEndian);
 	void SetAddress(uint32_t Address, bool LittleEndian);
 };
-

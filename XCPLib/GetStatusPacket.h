@@ -29,7 +29,7 @@ public:
 		RESUME = 0x80, //slave is in resume mode
 	};
 
-	enum CurrentResourceProtectionBits //The given resorce is protected with Seed&key. If a resource is protected, an attempt to exectue a command on it before a successful GET_SEED/UNLOCK sequence will result in ERR_ACCESS_LOCKED 
+	enum CurrentResourceProtectionBits //The given resorce is protected with Seed&key. If a resource is protected, an attempt to exectue a command on it before a successful GET_SEED/UNLOCK sequence will result in ERR_ACCESS_LOCKED
 	{
 		CAL_PG = 0x01,
 		DAQ = 0x04,
@@ -50,4 +50,3 @@ public:
 	uint16_t GetSessionConfigurationId(bool LittleEndian);
 	void SetSessionConfigurationId(uint16_t SessionConfigurationId);
 };
-

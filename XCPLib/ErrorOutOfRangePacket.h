@@ -8,4 +8,3 @@ public:
 	virtual ~ErrorOutOfRangePacket();
 	virtual void Dispatch(IIncomingMessageHandler& Handler);
 };
-

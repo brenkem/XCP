@@ -27,10 +27,9 @@ public:
 	XCP_API uint8_t GetByteElement(uint32_t i);
 	XCP_API bool GetIsTimestamped();
 	XCP_API bool GetIsCTRed();
-	//Gets the index of the packet in the DAQList int the DAQLayout descriptor. It is already calculated, so no more transformations needed. (Absolute ODT, relative odt abs DAQ) 
+	//Gets the index of the packet in the DAQList int the DAQLayout descriptor. It is already calculated, so no more transformations needed. (Absolute ODT, relative odt abs DAQ)
 	XCP_API uint16_t GetDAQIndex();
-	//Gets the index of the packet in the ODTList int the DAQLayout descriptor. It is already calculated, so no more transformations needed. (Absolute ODT, relative odt abs DAQ) 
+	//Gets the index of the packet in the ODTList int the DAQLayout descriptor. It is already calculated, so no more transformations needed. (Absolute ODT, relative odt abs DAQ)
 	XCP_API uint8_t GetODTIndex();
 	virtual void Dispatch(IIncomingMessageHandler& Handler);
 };
-

@@ -11,4 +11,3 @@ public:
 	virtual uint8_t GetHeaderSize() = 0;
 	virtual uint8_t GetTailSize() = 0;
 };
-

@@ -9,4 +9,3 @@ public:
 	virtual uint8_t GetTailSize();
 	virtual IXCPMessage* CreateMessage(IXCPPacket* packet);
 };
-

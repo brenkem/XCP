@@ -8,4 +8,3 @@ public:
 	CommandPacket() : ICTO() {};
 	virtual ~CommandPacket() {}
 };
-

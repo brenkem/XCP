@@ -72,7 +72,6 @@ UploadResponse * UploadResponse::Deserialize(const std::vector<uint8_t>& Data, u
 
 uint8_t UploadResponse::GetNumberOfElements()
 {
-	
 	return m_NumberOfElements;
 }
 
@@ -194,4 +193,3 @@ uint8_t ShortUploadPacket::GetNumberOfDataElements()
 {
 	return m_Data[BytePositions::NUMBER_OF_DATA_ELEMENTS];
 }
-
