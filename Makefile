@@ -9,7 +9,6 @@
 MAKEFILE      = Makefile
 
 first: make_first
-QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
 MKDIR         = mkdir -p
@@ -19,8 +18,6 @@ COPY_DIR      = cp -f -R
 INSTALL_FILE  = install -m 644 -p
 INSTALL_PROGRAM = install -m 755 -p
 INSTALL_DIR   = cp -f -R
-QINSTALL      = /usr/lib/qt5/bin/qmake -install qinstall
-QINSTALL_PROGRAM = /usr/lib/qt5/bin/qmake -install qinstall -exe
 DEL_FILE      = rm -f
 SYMLINK       = ln -f -s
 DEL_DIR       = rmdir
@@ -29,36 +26,9 @@ TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = XCP1.0.0
 DISTDIR = /home/brenkem/git/XCP/.tmp/XCP1.0.0
-SUBTARGETS    =  \
-		sub-QtGUI-QtGUI-pro \
-		sub-XCPLib-XCPLib-pro
+SUBTARGETS    = sub-XCPLib-XCPLib-pro
 
 
-sub-QtGUI-QtGUI-pro-qmake_all:  FORCE
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro
-	cd QtGUI/ && $(MAKE) -f Makefile qmake_all
-sub-QtGUI-QtGUI-pro: FORCE
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro ) && $(MAKE) -f Makefile
-sub-QtGUI-QtGUI-pro-make_first: FORCE
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro ) && $(MAKE) -f Makefile 
-sub-QtGUI-QtGUI-pro-all: FORCE
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro ) && $(MAKE) -f Makefile all
-sub-QtGUI-QtGUI-pro-clean: FORCE
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro ) && $(MAKE) -f Makefile clean
-sub-QtGUI-QtGUI-pro-distclean: FORCE
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro ) && $(MAKE) -f Makefile distclean
-sub-QtGUI-QtGUI-pro-install_subtargets: FORCE
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro ) && $(MAKE) -f Makefile install
-sub-QtGUI-QtGUI-pro-uninstall_subtargets: FORCE
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro ) && $(MAKE) -f Makefile uninstall
 sub-XCPLib-XCPLib-pro-qmake_all:  FORCE
 	@test -d XCPLib/ || mkdir -p XCPLib/
 	cd XCPLib/ && $(QMAKE) -o Makefile /home/brenkem/git/XCP/XCPLib/XCPLib.pro
@@ -85,172 +55,24 @@ sub-XCPLib-XCPLib-pro-uninstall_subtargets: FORCE
 	@test -d XCPLib/ || mkdir -p XCPLib/
 	cd XCPLib/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/XCPLib/XCPLib.pro ) && $(MAKE) -f Makefile uninstall
 
-Makefile: XCP.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base.conf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base-unix.conf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-base.conf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-unix.conf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fb_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fontdatabase_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_glx_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_functions.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qmake_use.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/file_copies.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/testcase_targets.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		XCP.pro
-	$(QMAKE) -o Makefile XCP.pro
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base.conf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base-unix.conf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-base.conf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-unix.conf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fb_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fontdatabase_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_glx_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_functions.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
-.qmake.stash:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qmake_use.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/file_copies.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/testcase_targets.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf:
-/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
-XCP.pro:
-qmake: FORCE
-	@$(QMAKE) -o Makefile XCP.pro
-
-qmake_all: sub-QtGUI-QtGUI-pro-qmake_all sub-XCPLib-XCPLib-pro-qmake_all FORCE
-
-make_first: sub-QtGUI-QtGUI-pro-make_first sub-XCPLib-XCPLib-pro-make_first  FORCE
-all: sub-QtGUI-QtGUI-pro-all sub-XCPLib-XCPLib-pro-all  FORCE
-clean: sub-QtGUI-QtGUI-pro-clean sub-XCPLib-XCPLib-pro-clean  FORCE
-distclean: sub-QtGUI-QtGUI-pro-distclean sub-XCPLib-XCPLib-pro-distclean  FORCE
+make_first: sub-XCPLib-XCPLib-pro-make_first  FORCE
+all: sub-XCPLib-XCPLib-pro-all  FORCE
+clean: sub-XCPLib-XCPLib-pro-clean  FORCE
+distclean: sub-XCPLib-XCPLib-pro-distclean  FORCE
 	-$(DEL_FILE) Makefile
 	-$(DEL_FILE) .qmake.stash
-install_subtargets: sub-QtGUI-QtGUI-pro-install_subtargets sub-XCPLib-XCPLib-pro-install_subtargets FORCE
-uninstall_subtargets: sub-QtGUI-QtGUI-pro-uninstall_subtargets sub-XCPLib-XCPLib-pro-uninstall_subtargets FORCE
+install_subtargets: sub-XCPLib-XCPLib-pro-install_subtargets FORCE
+uninstall_subtargets: sub-XCPLib-XCPLib-pro-uninstall_subtargets FORCE
 
-sub-QtGUI-QtGUI-pro-check:
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro ) && $(MAKE) -f Makefile check
 sub-XCPLib-XCPLib-pro-check:
 	@test -d XCPLib/ || mkdir -p XCPLib/
 	cd XCPLib/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/XCPLib/XCPLib.pro ) && $(MAKE) -f Makefile check
-check: sub-QtGUI-QtGUI-pro-check sub-XCPLib-XCPLib-pro-check
+check: sub-XCPLib-XCPLib-pro-check
 
-sub-QtGUI-QtGUI-pro-benchmark:
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro ) && $(MAKE) -f Makefile benchmark
 sub-XCPLib-XCPLib-pro-benchmark:
 	@test -d XCPLib/ || mkdir -p XCPLib/
 	cd XCPLib/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/XCPLib/XCPLib.pro ) && $(MAKE) -f Makefile benchmark
-benchmark: sub-QtGUI-QtGUI-pro-benchmark sub-XCPLib-XCPLib-pro-benchmark
+benchmark: sub-XCPLib-XCPLib-pro-benchmark
 install:install_subtargets  FORCE
 
 uninstall: uninstall_subtargets FORCE
@@ -260,15 +82,10 @@ FORCE:
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
 
-distdir: sub-QtGUI-QtGUI-pro-distdir sub-XCPLib-XCPLib-pro-distdir FORCE
+distdir: sub-XCPLib-XCPLib-pro-distdir FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base-unix.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-base.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-unix.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fb_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fontdatabase_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_glx_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_functions.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf .qmake.stash /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qmake_use.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/file_copies.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/testcase_targets.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf XCP.pro $(DISTDIR)/
-
-sub-QtGUI-QtGUI-pro-distdir: FORCE
-	@test -d QtGUI/ || mkdir -p QtGUI/
-	cd QtGUI/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/QtGUI/QtGUI.pro ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/QtGUI
 
 sub-XCPLib-XCPLib-pro-distdir: FORCE
 	@test -d XCPLib/ || mkdir -p XCPLib/
 	cd XCPLib/ && ( test -e Makefile || $(QMAKE) -o Makefile /home/brenkem/git/XCP/XCPLib/XCPLib.pro ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/XCPLib
-
