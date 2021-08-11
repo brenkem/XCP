@@ -80,17 +80,17 @@ void IncomingMessageHandler::Handle(ResponsePacket & Packet)
 
 void IncomingMessageHandler::Handle(GetStatusResponsePacket & Packet)
 {
-	std::cout << "jott egy statusresonse packet\n";
+	std::cout << "came from a statusresonse packet\n";
 }
 
 void IncomingMessageHandler::Handle(SynchResponsePacket & Packet)
 {
-	std::cout << "jott egy sync response...\n";
+	std::cout << "came from a sync response...\n";
 }
 
 void IncomingMessageHandler::Handle(UploadResponse & Packet)
 {
-	std::cout << "Jott egy Upload response\nTartalma:\n";
+	std::cout << "came from a upload response\nContent:\n";
 	for (uint8_t i = 0; i < Packet.GetNumberOfElements(); i++)
 	{
 		std::cout << std::hex << (int)Packet.GetElement<uint8_t>(i, (m_Master.GetSlaveProperties().ByteOrder == 0)) << " ";
