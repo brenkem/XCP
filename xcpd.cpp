@@ -13,13 +13,16 @@
 */
 
 #include <stdio.h>
+#include <dlfcn.h>
 #include <string.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <arpa/inet.h>
 
 #include "xcpd.h"
 
 #define PORT			5555
+#define SEEDNKEYXCP_SO		"SeedNKeyXCP.so"
 
 
 int main(int argc, char *argv[])
@@ -27,7 +30,12 @@ int main(int argc, char *argv[])
 	int s;
 	XCPMsgPtr message;
 	struct sockaddr_in servaddr, srcaddr;
+
+	LoadSO(); // Loads the user provided dll with the Seed&Key algorithms. Sets up the GetAvailablePrivileges and ComputeKeyFromSeed function pointers.
 	master = new XCPMaster(TransportLayer::ETHERNET);
+	master->SetSeedAndKeyFunctionPointers(
+		GetAvailablePrivileges,		// function pointer for the GetAvailablePrivileges
+		ComputeKeyFromSeed);		// function pointer for the ComputeKeyFromSeed
 
 	// Creating socket file descriptor
 	if ( (s = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
@@ -48,14 +56,7 @@ int main(int argc, char *argv[])
 	servaddr.sin_port = htons(PORT);
 	servaddr.sin_addr.s_addr = inet_addr("160.48.199.33");
 
-//LoadDLL();
-/*
-	master->SetSeedAndKeyFunctionPointers(
-		GetAvailablePrivileges,		//function pointer for the GetAvailablePrivileges
-		ComputeKeyFromSeed);		//function pointer for the ComputeKeyFromSeed
-*/
-
-
+	// perform XCP
 	std::cout << "Send XCP CONNECT.\n";
 	XCPMsgPtr connect_message = master->CreateConnectMessage(ConnectPacket::ConnectMode::NORMAL);
 	Send(s, servaddr, std::move(connect_message));
@@ -68,13 +69,13 @@ int main(int argc, char *argv[])
 	std::cout << "\n";
 
 
-	// TODO: implement SeedGet to calc key via external library and unlock SLAVE
-/*	std::cout << "Send to get seed.\n";
+	// unlook SLAVE with calculated key
+	std::cout << "Send to get seed.\n";
 	XCPMsgPtr GetSeed1 = master->CreateGetSeedMessage(GetSeedPacket::Mode::FIRST_PART, GetSeedPacket::Resource::DAQ);
 	Send(s, servaddr, std::move(GetSeed1));
 	std::vector<XCPMsgPtr> UnlockMessages = master->CreateUnlockMessages();
 	Send(s, servaddr, std::move(UnlockMessages[0]));
-*/
+
 
 	std::cout << "Send XCP SET_MTA + UPLOAD.\n";
 //	XCPMsgPtr SetMTA = master->CreateSetMTAMessage(0x4000524C, 0);
@@ -100,6 +101,38 @@ int main(int argc, char *argv[])
 	std::cout << "\n";
 
 	close(s);
+	return 0;
+}
+
+int LoadSO()
+{
+	void *hGetProcIDSO;
+
+	// load the shared object
+	hGetProcIDSO = dlopen(SEEDNKEYXCP_SO, RTLD_LAZY);
+	if (!hGetProcIDSO) {
+		std::cout << "could not load the dynamic library" << std::endl;
+		fprintf(stderr, "%s\n", dlerror());
+		exit(EXIT_FAILURE);
+	}
+
+	// clear any existing error
+	dlerror();
+
+	// check for XCP_GetAvailablePrivileges()
+	GetAvailablePrivileges = (XCP_GetAvailablePrivilegesPtr_t)dlsym(hGetProcIDSO, "XCP_GetAvailablePrivileges");
+	if (!GetAvailablePrivileges) {
+		std::cout << "could not locate the function" << std::endl;
+                exit(EXIT_FAILURE);
+	}
+
+	// check for XCP_ComputeKeyFromSeed()
+	ComputeKeyFromSeed = (XCP_ComputeKeyFromSeedPtr_t)dlsym(hGetProcIDSO, "XCP_ComputeKeyFromSeed");
+	if (!GetAvailablePrivileges) {
+		std::cout << "could not locate the function" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
 	return 0;
 }
 
