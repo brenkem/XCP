@@ -21,7 +21,9 @@
 
 #include "xcpd.h"
 
-#define PORT			5555
+#define SRC_PORT		5555
+#define DST_PORT		5555
+#define ECU_IP			"160.48.199.33"
 #define SEEDNKEYXCP_SO		"SeedNKeyXCP.so"
 
 
@@ -47,14 +49,14 @@ int main(int argc, char *argv[])
 	memset(&srcaddr, 0, sizeof(srcaddr));
 	srcaddr.sin_family = AF_INET;
 	srcaddr.sin_addr.s_addr= htonl(INADDR_ANY);
-	srcaddr.sin_port = htons(PORT);
+	srcaddr.sin_port = htons(SRC_PORT);
 	bind(s, (struct sockaddr *) &srcaddr, sizeof(srcaddr));
 
 	// Filling server information
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
-	servaddr.sin_port = htons(PORT);
-	servaddr.sin_addr.s_addr = inet_addr("160.48.199.33");
+	servaddr.sin_port = htons(DST_PORT);
+	servaddr.sin_addr.s_addr = inet_addr(ECU_IP);
 
 	// perform XCP
 	std::cout << "Send XCP CONNECT.\n";
