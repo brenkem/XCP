@@ -30,14 +30,19 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = XCPLib1.0.0
-DISTDIR = /home/brenkem/git/XCP_old/XCPLib/debug/XCPLib1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -shared -Wl,-soname,libXCP.so.1
 LIBS          = $(SUBLIBS) -lGL -lpthread
 AR            = ar cqs
 RANLIB        =
 SED           = sed
-STRIP         = strip
+
+# define strip tool
+ifeq ($(CXX),arm-linux-g++)
+	STRIP = arm-linux-strip
+else
+	STRIP = strip
+endif
 
 ####### Output directory
 
@@ -71,6 +76,7 @@ SOURCES       = CANMessage.cpp \
 		TCPMessageFactory.cpp \
 		UnlockPacket.cpp \
 		UploadPacket.cpp \
+		DownloadPacket.cpp \
 		Utils.cpp \
 		XCPMaster.cpp
 OBJECTS       = debug/CANMessage.o \
@@ -99,6 +105,7 @@ OBJECTS       = debug/CANMessage.o \
 		debug/TCPMessageFactory.o \
 		debug/UnlockPacket.o \
 		debug/UploadPacket.o \
+		debug/DownloadPacket.o \
 		debug/Utils.o \
 		debug/XCPMaster.o
 DIST          = CANMessageFactory.h \
@@ -135,6 +142,7 @@ DIST          = CANMessageFactory.h \
 		TCPMessage.h \
 		UnlockPacket.h \
 		UploadPacket.h \
+		DownloadPacket.h \
 		Utils.h \
 		XCPMaster.h \
 		XCPApiDecl.h CANMessage.cpp \
@@ -163,6 +171,7 @@ DIST          = CANMessageFactory.h \
 		TCPMessageFactory.cpp \
 		UnlockPacket.cpp \
 		UploadPacket.cpp \
+		DownloadPacket.cpp \
 		Utils.cpp \
 		XCPMaster.cpp
 QMAKE_TARGET  = XCPLib
@@ -210,8 +219,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents CANMessageFactory.h CANMessage.h CommandPacket.h ConnectPacket.h ConnectPositivePacket.h DAQPackets.h DisconnectPacket.h DTO.h ErrorAccessLockedPacket.h ErrorCommandUnknown.h ErrorMemoryOverflowPacket.h ErrorOutOfRangePacket.h ErrorPacket.h ErrorSequencePacket.h GetSeedPacket.h GetStatusPacket.h ICTO.h IIncomingMessageHandler.h IMessageFactory.h IncomingMessageHandler.h IXCPHeader.h IXCPMessage.h IXCPPacket.h IXCPTail.h PacketFactory.h ResponsePacket.h SetMTAPacket.h SlaveMemory.h SynchPacket.h TCPHeader.h TCPMessageFactory.h TCPMessage.h UnlockPacket.h UploadPacket.h Utils.h XCPMaster.h XCPApiDecl.h $(DISTDIR)/
-	$(COPY_FILE) --parents CANMessage.cpp CANMessageFactory.cpp ConnectPacket.cpp ConnectPositivePacket.cpp DAQPackets.cpp DisconnectPacket.cpp DTO.cpp ErrorAccessLockedPacket.cpp ErrorCommandUnknown.cpp ErrorMemoryOverflowPacket.cpp ErrorOutOfRangePacket.cpp ErrorSequencePacket.cpp GetSeedPacket.cpp GetStatusPacket.cpp IncomingMessageHandler.cpp IXCPMessage.cpp IXCPPacket.cpp PacketFactory.cpp SetMTAPacket.cpp SlaveMemory.cpp SynchPacket.cpp TCPHeader.cpp TCPMessage.cpp TCPMessageFactory.cpp UnlockPacket.cpp UploadPacket.cpp Utils.cpp XCPMaster.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents CANMessageFactory.h CANMessage.h CommandPacket.h ConnectPacket.h ConnectPositivePacket.h DAQPackets.h DisconnectPacket.h DTO.h ErrorAccessLockedPacket.h ErrorCommandUnknown.h ErrorMemoryOverflowPacket.h ErrorOutOfRangePacket.h ErrorPacket.h ErrorSequencePacket.h GetSeedPacket.h GetStatusPacket.h ICTO.h IIncomingMessageHandler.h IMessageFactory.h IncomingMessageHandler.h IXCPHeader.h IXCPMessage.h IXCPPacket.h IXCPTail.h PacketFactory.h ResponsePacket.h SetMTAPacket.h SlaveMemory.h SynchPacket.h TCPHeader.h TCPMessageFactory.h TCPMessage.h UnlockPacket.h UploadPacket.h DownloadPacket.h Utils.h XCPMaster.h XCPApiDecl.h $(DISTDIR)/
+	$(COPY_FILE) --parents CANMessage.cpp CANMessageFactory.cpp ConnectPacket.cpp ConnectPositivePacket.cpp DAQPackets.cpp DisconnectPacket.cpp DTO.cpp ErrorAccessLockedPacket.cpp ErrorCommandUnknown.cpp ErrorMemoryOverflowPacket.cpp ErrorOutOfRangePacket.cpp ErrorSequencePacket.cpp GetSeedPacket.cpp GetStatusPacket.cpp IncomingMessageHandler.cpp IXCPMessage.cpp IXCPPacket.cpp PacketFactory.cpp SetMTAPacket.cpp SlaveMemory.cpp SynchPacket.cpp TCPHeader.cpp TCPMessage.cpp TCPMessageFactory.cpp UnlockPacket.cpp UploadPacket.cpp DownloadPacket.cpp Utils.cpp XCPMaster.cpp $(DISTDIR)/
 
 
 clean: compiler_clean
@@ -398,6 +407,7 @@ debug/IncomingMessageHandler.o: IncomingMessageHandler.cpp IncomingMessageHandle
 		TCPMessage.h \
 		GetStatusPacket.h \
 		UploadPacket.h \
+		DownloadPacket.h \
 		ErrorAccessLockedPacket.h \
 		ErrorPacket.h \
 		ErrorOutOfRangePacket.h \
@@ -439,6 +449,7 @@ debug/PacketFactory.o: PacketFactory.cpp PacketFactory.h \
 		DisconnectPacket.h \
 		SetMTAPacket.h \
 		UploadPacket.h \
+		DownloadPacket.h \
 		ErrorAccessLockedPacket.h \
 		ErrorOutOfRangePacket.h \
 		ErrorSequencePacket.h \
@@ -517,6 +528,15 @@ debug/UploadPacket.o: UploadPacket.cpp UploadPacket.h \
 		XCPApiDecl.h \
 		ResponsePacket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/UploadPacket.o UploadPacket.cpp
+
+debug/DownloadPacket.o: DownloadPacket.cpp DownloadPacket.h \
+		CommandPacket.h \
+		ICTO.h \
+		IXCPPacket.h \
+		IIncomingMessageHandler.h \
+		XCPApiDecl.h \
+		ResponsePacket.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/DownloadPacket.o DownloadPacket.cpp
 
 debug/Utils.o: Utils.cpp Utils.h \
 		XCPApiDecl.h

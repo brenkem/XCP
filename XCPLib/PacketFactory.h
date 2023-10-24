@@ -26,6 +26,8 @@ public:
 	IXCPPacket* CreateSetMTAPacket(uint32_t address, uint8_t extension, bool LittleEndian);
 	IXCPPacket* CreateUploadPacket(uint8_t NumberOfElements);
 	IXCPPacket* CreateShortUploadPacket(uint8_t NumberOfElements, uint32_t Address, uint8_t AddressExtension, bool LittleEndian);
+	IXCPPacket* CreateDownloadPacket(const std::vector<uint8_t>& data);
+	IXCPPacket* CreateShortDownloadPacket(uint32_t Address, uint8_t AddressExtension, const std::vector<uint8_t>& data, bool LittleEndian);
 	IXCPPacket* CreateFreeDaqPacket();
 	IXCPPacket* CreateAllocDaqPacket(uint16_t DaqCount, bool LittleEndian);
 	IXCPPacket* CreateAllocOdtPacket(uint16_t DaqListNumber, uint8_t OdtCount, bool LittleEndian);

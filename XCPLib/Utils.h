@@ -4,9 +4,9 @@
 
 #include "XCPApiDecl.h"
 
-//TODO: make this work with big endian systems
-//TODO: use bitconverter everywhere, instead of converting values by hand every occasion
-//TODO: make converting work to the other way as well
+// TODO: make this work with big endian systems
+// TODO: use bitconverter everywhere, instead of converting values by hand every occasion
+// TODO: make converting work to the other way as well
 
 namespace XCP
 {

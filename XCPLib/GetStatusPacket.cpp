@@ -82,7 +82,7 @@ uint16_t GetStatusResponsePacket::GetSessionConfigurationId(bool LittleEndian)
 	}
 	else
 	{
-		//do byte-swap
+		// do byte-swap
 		return (((uint16_t)m_Data[BytePositions::SESSION_CONFIGURATION_ID]) << 8) | m_Data[BytePositions::SESSION_CONFIGURATION_ID + 1];
 	}
 }

@@ -27,7 +27,7 @@ ODTEntry::~ODTEntry()
 {
 }
 
-const uint32_t ODTEntry::GetAddress() const
+uint32_t ODTEntry::GetAddress() const
 {
 	return m_Address;
 }
@@ -37,7 +37,7 @@ void ODTEntry::SetAddress(uint32_t Address)
 	m_Address = Address;
 }
 
-const uint8_t ODTEntry::GetAddressExtension() const
+uint8_t ODTEntry::GetAddressExtension() const
 {
 	return m_AddressExtension;
 }
@@ -47,7 +47,7 @@ void ODTEntry::SetAddressExtension(uint8_t AddressExtension)
 	m_AddressExtension = AddressExtension;
 }
 
-const uint8_t ODTEntry::GetLength() const
+uint8_t ODTEntry::GetLength() const
 {
 	return m_Length;
 }
@@ -93,12 +93,12 @@ void ODTEntry::SetDataType(uint8_t DataType)
 		m_Length = 8;
 		break;
 	default:
-		m_Length = 0; //undefined data type = error
+		m_Length = 0; // undefined data type = error
 		break;
 	}
 }
 
-const uint8_t ODTEntry::GetDataType() const
+uint8_t ODTEntry::GetDataType() const
 {
 	return m_DataType;
 }
@@ -128,7 +128,7 @@ ODTEntry& ODT::GetEntry(uint32_t Index)
 	return m_EntryList[Index];
 }
 
-const uint32_t ODT::GetODTSize() const
+uint32_t ODT::GetODTSize() const
 {
 	uint32_t Size = 0;
 	for (auto a : m_EntryList)
@@ -138,12 +138,12 @@ const uint32_t ODT::GetODTSize() const
 	return Size;
 }
 
-XCP_API const uint32_t ODT::GetNumberOfEntries() const
+XCP_API uint32_t ODT::GetNumberOfEntries() const
 {
 	return (uint32_t)m_EntryList.size();
 }
 
-XCP_API const bool ODT::IsFirst() const
+XCP_API bool ODT::IsFirst() const
 {
 	return m_First;
 }
@@ -189,22 +189,22 @@ void DAQ::SetMode(uint8_t Mode)
 	m_Mode = Mode;
 }
 
-const uint8_t DAQ::GetMode() const
+uint8_t DAQ::GetMode() const
 {
 	return m_Mode;
 }
 
-const uint16_t DAQ::GetEventChannel() const
+uint16_t DAQ::GetEventChannel() const
 {
 	return m_EventChannel;
 }
 
-const uint8_t DAQ::GetPrescaler() const
+uint8_t DAQ::GetPrescaler() const
 {
 	return m_Prescaler;
 }
 
-const uint8_t DAQ::GetPriority() const
+uint8_t DAQ::GetPriority() const
 {
 	return m_Priority;
 }
@@ -224,7 +224,7 @@ void DAQ::SetPriority(uint8_t Priority)
 	m_Priority = Priority;
 }
 
-XCP_API const uint16_t DAQ::GetNumberOfODTs() const
+XCP_API uint16_t DAQ::GetNumberOfODTs() const
 {
 	return (uint16_t)m_ODTList.size();
 }
@@ -280,7 +280,7 @@ DAQ& DAQLayout::GetDAQ(uint32_t Index)
 	return m_DAQList[Index];
 }
 
-XCP_API const uint16_t DAQLayout::GetNumberOfDAQLists() const
+XCP_API uint16_t DAQLayout::GetNumberOfDAQLists() const
 {
 	return (uint16_t)m_DAQList.size();
 }
@@ -331,7 +331,7 @@ XCP_API int32_t DAQLayout::CalculateODTNumberFromAbsolutePID(uint8_t PID)
 
 XCP_API ODT& DAQLayout::GetODTFromAbsolutePID(uint8_t PID)
 {
-	bool found = false;
+	// bool found = false;
 	int i;
 	for (i = 0; i < GetNumberOfDAQLists(); i++)
 	{

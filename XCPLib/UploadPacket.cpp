@@ -32,7 +32,7 @@ uint8_t UploadPacket::GetNumberOfDataElements()
 
 UploadResponse::UploadResponse(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t AG) : ResponsePacket()
 {
-	m_DataLength = (uint32_t)Data.size() - HeaderSize - 1; //size -headersize - PID fieldsize
+	m_DataLength = (uint32_t)Data.size() - HeaderSize - 1; // size -headersize - PID fieldsize
 	m_PacketSize = m_DataLength + 1;
 	m_Data = new uint8_t[m_DataLength];
 	for (unsigned int i = 0; i < m_DataLength; i++)
@@ -53,7 +53,7 @@ UploadResponse::UploadResponse(const std::vector<uint8_t>& Data, uint8_t HeaderS
 	{
 		m_NumberOfElements = (m_DataLength - 3)/4;
 	}
-	else //ERROR
+	else // ERROR
 	{
 		m_NumberOfElements = 0;
 	}
@@ -145,7 +145,7 @@ uint32_t ShortUploadPacket::GetAddress(bool LittleEndian)
 	}
 	else
 	{
-		//do byte-swap
+		// do byte-swap
 		return (((uint32_t)m_Data[BytePositions::ADDRESS]) << 24) | (((uint32_t)m_Data[BytePositions::ADDRESS + 1]) << 16) | (((uint32_t)m_Data[BytePositions::ADDRESS + 2]) << 8) | m_Data[BytePositions::ADDRESS + 3];
 	}
 }

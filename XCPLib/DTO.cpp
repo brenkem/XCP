@@ -6,6 +6,7 @@ using IdFieldBits = GetDaqProcessorInfoResponse::DaqKeyByteBits;
 
 DTO::DTO(const std::vector<uint8_t>& Data, uint8_t HeadSize, uint8_t TailSize, uint8_t TimestampSize, bool TimestampFixed, uint8_t IdentificationFieldType, DAQLayout& DaqLayout) : IXCPPacket()
 {
+	(void)TailSize; // Added this line to remove WARNING [Unused Parameter]
 	IsTimestamped = false;
 	m_Timestamp = 0;
 	IsCTRed = false;

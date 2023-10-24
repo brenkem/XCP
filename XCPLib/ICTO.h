@@ -12,7 +12,7 @@ enum CTOSlaveToMasterPacketTypes
 
 enum CTOMasterToSlaveCommands
 {
-	//Standard Commands:
+	// Standard Commands:
 	CONNECT = 0xFF,
 	DISCONNECT = 0xFE,
 	GET_STATUS = 0xFD,
@@ -29,11 +29,24 @@ enum CTOMasterToSlaveCommands
 	TRANSPORT_LAYER_CMD = 0xF2,
 	USER_CMD = 0xF1,
 
-	//Calibration commands:
+	// Calibration commands:
+	DOWNLOAD = 0xF0,
+	DOWNLOAD_NEXT = 0xEF,
+	DOWNLOAD_MAX = 0xEE,
+	SHORT_DOWNLOAD = 0xED,
+	MODIFY_BITS = 0xEC,
 
-	//Page switching commands:
+	// Page switching commands:
+	SET_CAL_PAGE = 0xEB,
+	GET_CAL_PAGE = 0xEA,
+	GET_PAG_PROCESSOR_INFO = 0xE9,
+	GET_SEGMENT_INFO = 0xE8,
+	GET_PAGE_INFO = 0xE7,
+	SET_SEGMENT_MODE = 0xE6,
+	GET_SEGMENT_MODE = 0xE5,
+	COPY_CAL_PAGE = 0xE4,
 
-	//Basic data acquisition and stimulation commands:
+	// Basic data acquisition and stimulation commands:
 	SET_DAQ_PTR = 0xE2,
 	WRITE_DAQ = 0xE1,
 	SET_DAQ_LIST_MODE = 0xE0,
@@ -48,19 +61,19 @@ enum CTOMasterToSlaveCommands
 	GET_DAQ_EVENT_INFO = 0xD7,
 	DTO_CTR_PROPERTIES = 0xC5,
 
-	//Static data acquisition and stim commands:
+	// Static data acquisition and stim commands:
 	CLEAR_DAQ_LIST = 0xE3,
 	GET_DAQ_LIST_INFO = 0xD8,
 
-	//Dynamic data acquisition and stim commands:
+	// Dynamic data acquisition and stim commands:
 	FREE_DAQ = 0xD6,
 	ALLOC_DAQ = 0xD5,
 	ALLOC_ODT = 0xD4,
 	ALLOC_ODT_ENTRY = 0xD3,
 
-	//Non-volatile memory programming commands:
+	// Non-volatile memory programming commands:
 
-	//Time sync commands:
+	// Time sync commands:
 };
 
 class ICTO : public IXCPPacket

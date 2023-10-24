@@ -5,6 +5,7 @@
 #include "DisconnectPacket.h"
 #include "SetMTAPacket.h"
 #include "UploadPacket.h"
+#include "DownloadPacket.h"
 #include "DAQPackets.h"
 #include "ErrorAccessLockedPacket.h"
 #include "ErrorOutOfRangePacket.h"
@@ -16,7 +17,6 @@
 #include "DTO.h"
 #include "ErrorCommandUnknown.h"
 #include <iostream>
-
 
 IXCPPacket * PacketFactory::CreateResponsePacket(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t TailSize, CommandPacket * LastSentCommand)
 {
@@ -66,10 +66,12 @@ IXCPPacket * PacketFactory::CreateResponsePacket(const std::vector<uint8_t>& Dat
 
 IXCPPacket * PacketFactory::CreateErrorPacket(const std::vector<uint8_t>& data, uint8_t header_size, uint8_t TailSize, CommandPacket * LastSentCommand)
 {
+	(void)TailSize; // Added this line to remove WARNING [Unused Parameter]
 	if (LastSentCommand)
 	{
 		uint8_t ErrorCode = data[header_size + 1];
 		uint8_t LastCommandPID = LastSentCommand->GetPid();
+		(void)LastCommandPID; // Added this line to remove WARNING [Unused Parameter]
 		switch (ErrorCode)
 		{
 		case ErrorCodes::ERR_CMD_SYNCH:
@@ -102,7 +104,7 @@ IXCPPacket * PacketFactory::CreateErrorPacket(const std::vector<uint8_t>& data, 
 
 IXCPPacket * PacketFactory::DeserializeIncomingDaq(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t TailSize)
 {
-	uint8_t TimestampSize = 4; //TODO: get timestamp size from master (GetDaqResoultionInfo)
+	uint8_t TimestampSize = 4; // TODO: get timestamp size from master (GetDaqResoultionInfo)
 	return new DTO(Data, HeaderSize, TailSize, TimestampSize, false, m_Master.GetSlaveProperties().DaqProperies.IdentificationFieldType, m_Master.GetDaqLayout());
 }
 
@@ -154,6 +156,19 @@ IXCPPacket * PacketFactory::CreateShortUploadPacket(uint8_t NumberOfElements, ui
 	packet->SetAddress(Address, LittleEndian);
 	packet->SetAddressExtension(AddressExtension);
 	packet->SetNumberOfDataElements(NumberOfElements);
+	return packet;
+}
+
+IXCPPacket * PacketFactory::CreateDownloadPacket(const std::vector<uint8_t>& Data)
+{
+	return new DownloadPacket(Data);
+}
+
+IXCPPacket * PacketFactory::CreateShortDownloadPacket(uint32_t Address, uint8_t AddressExtension, const std::vector<uint8_t>& Data, bool LittleEndian)
+{
+	ShortDownloadPacket* packet = new ShortDownloadPacket(Data);
+	packet->SetAddress(Address, LittleEndian);
+	packet->SetAddressExtension(AddressExtension);
 	return packet;
 }
 
@@ -243,7 +258,7 @@ std::vector<IXCPPacket*> PacketFactory::CreateUnlockPackets(const std::vector<ui
 
 IXCPPacket * PacketFactory::DeserializeIncomingFromSlave(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t TailSize, CommandPacket* LastSentCommand)
 {
-	if (Data.size() > HeaderSize) //Handle empty messages
+	if (Data.size() > HeaderSize) // Handle empty messages
 	{
 		uint8_t PID = Data[HeaderSize];
 		switch (PID)
@@ -259,7 +274,7 @@ IXCPPacket * PacketFactory::DeserializeIncomingFromSlave(const std::vector<uint8
 		case CTOSlaveToMasterPacketTypes::SERV:
 			break;
 		default:
-			if (PID >= 0x00 && PID <= 0xFB)
+			if (/*PID >= 0x00 && */PID <= 0xFB)
 			{
 				return DeserializeIncomingDaq(Data, HeaderSize, TailSize);
 			}

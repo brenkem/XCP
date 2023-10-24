@@ -1,16 +1,8 @@
 /*
 	This routine is only a example to perform a XCP CONNECT
 	to an connected SLAVE on a configured (IP settings) network.
-	See QtGUI/XCPWorkerThread.{cpp,h} of forked repository.
 */
 
-/*
-	XCP example with the following parameter:
-
-	Protocol:       UDP
-	Port:           5555 (src & dst)
-	IP:		160.48.199.33/24
-*/
 
 #include <stdio.h>
 #include <dlfcn.h>
@@ -18,20 +10,25 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include <iostream>
 
 #include "xcpd.h"
 
 #define SRC_PORT		5555
 #define DST_PORT		5555
-#define ECU_IP			"160.48.199.33"
+#define ECU_IP			"127.0.0.1"
 #define SEEDNKEYXCP_SO		"SeedNKeyXCP.so"
 
 
 int main(int argc, char *argv[])
 {
 	int s;
-	XCPMsgPtr message;
 	struct sockaddr_in servaddr, srcaddr;
+	std::vector<uint8_t> data = { 0x11, 0x22, 0x33, 0x44 };
+
+	XCPMsgPtr connect_message, GetStatus, GetSeed1, SetMTA;
+	XCPMsgPtr Upload, ShortUpload, Download, ShortDownload, disconnect_message;
+
 
 	LoadSO(); // Loads the user provided dll with the Seed&Key algorithms. Sets up the GetAvailablePrivileges and ComputeKeyFromSeed function pointers.
 	master = new XCPMaster(TransportLayer::ETHERNET);
@@ -59,46 +56,50 @@ int main(int argc, char *argv[])
 	servaddr.sin_addr.s_addr = inet_addr(ECU_IP);
 
 	// perform XCP
+	// ################################### CONNECT ##########################################
 	std::cout << "Send XCP CONNECT.\n";
-	XCPMsgPtr connect_message = master->CreateConnectMessage(ConnectPacket::ConnectMode::NORMAL);
+	connect_message = master->CreateConnectMessage(ConnectPacket::ConnectMode::NORMAL);
 	Send(s, servaddr, std::move(connect_message));
 	MaxRecvsize = master->GetSlaveProperties().MaxDto;
 	std::cout << "\n";
 
+	// ################################# GET STATUS #########################################
 	std::cout << "Send XCP GET_STATUS.\n";
-	XCPMsgPtr GetStatus = master->CreateGetStatusMessage();
+	GetStatus = master->CreateGetStatusMessage();
 	Send(s, servaddr, std::move(GetStatus));
 	std::cout << "\n";
 
-
 	// unlook SLAVE with calculated key
 	std::cout << "Send to get seed.\n";
-	XCPMsgPtr GetSeed1 = master->CreateGetSeedMessage(GetSeedPacket::Mode::FIRST_PART, GetSeedPacket::Resource::DAQ);
+	GetSeed1 = master->CreateGetSeedMessage(GetSeedPacket::Mode::FIRST_PART, GetSeedPacket::Resource::DAQ);
 	Send(s, servaddr, std::move(GetSeed1));
 	std::vector<XCPMsgPtr> UnlockMessages = master->CreateUnlockMessages();
 	Send(s, servaddr, std::move(UnlockMessages[0]));
 
-
+	// ################################### UPLOAD ###########################################
 	std::cout << "Send XCP SET_MTA + UPLOAD.\n";
-//	XCPMsgPtr SetMTA = master->CreateSetMTAMessage(0x4000524C, 0);
-//	XCPMsgPtr SetMTA = master->CreateSetMTAMessage(0x4007661A, 0);
-	XCPMsgPtr SetMTA = master->CreateSetMTAMessage(0x4000E1A8, 0);
+	SetMTA = master->CreateSetMTAMessage(0x12345678, 0);
 	Send(s, servaddr, std::move(SetMTA));
-	XCPMsgPtr Upload = master->CreateUploadMessage(2);
+	Upload = master->CreateUploadMessage(2);
 	Send(s, servaddr, std::move(Upload));
 	std::cout << "\n";
 
-
-	std::cout << "Send XCP SHORT_UPLOAD.\n";
-//	XCPMsgPtr ShortUpload = master->CreateShortUploadMessage(5, 0x4000524C, 0);
-//	XCPMsgPtr ShortUpload = master->CreateShortUploadMessage(1, 0x4007661A, 0);
-	XCPMsgPtr ShortUpload = master->CreateShortUploadMessage(2, 0x4000E1A8, 0);
-	Send(s, servaddr, std::move(ShortUpload));
+	// ################################### DOWNLOAD #########################################
+	std::cout << "Send XCP SET_MTA + DOWNLOAD.\n";
+	SetMTA = master->CreateSetMTAMessage(0x12345678, 0);
+	Send(s, servaddr, std::move(SetMTA));
+	Download = master->CreateDownloadMessage(data);
+	Send(s, servaddr, std::move(Download));
 	std::cout << "\n";
 
+	std::cout << "Send XCP SHORT_DOWNLOAD.\n";
+	ShortDownload = master->CreateShortDownloadMessage(0x12345678, 0, data);
+	Send(s, servaddr, std::move(ShortDownload));
+	std::cout << "\n";
 
+	// ################################### DISCONNECT #######################################
 	std::cout << "Send XCP DISCONNECT.\n";
-	XCPMsgPtr disconnect_message = master->CreateDisconnectMessage();
+	disconnect_message = master->CreateDisconnectMessage();
 	Send(s, servaddr, std::move(disconnect_message));
 	std::cout << "\n";
 

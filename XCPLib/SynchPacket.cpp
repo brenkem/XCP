@@ -2,7 +2,7 @@
 
 
 
-SynchPacket::SynchPacket() :CommandPacket()
+SynchPacket::SynchPacket() : CommandPacket()
 {
 	m_PID = CTOMasterToSlaveCommands::SYNCH;
 	m_PacketSize = 1;
@@ -31,6 +31,8 @@ SynchResponsePacket::~SynchResponsePacket()
 
 SynchResponsePacket * SynchResponsePacket::Deserialize(const std::vector<uint8_t>& Data, uint8_t HeaderSize)
 {
+	(void)Data; // Added this line to remove WARNING [Unused Parameter]
+	(void)HeaderSize; // Added this line to remove WARNING [Unused Parameter]
 	return new SynchResponsePacket();
 }
 

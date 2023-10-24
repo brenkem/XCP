@@ -9,5 +9,5 @@ CANMessage::CANMessage(IXCPPacket * Packet) : IXCPMessage()
 
 CANMessage::~CANMessage()
 {
-	//deletion is handled in the parent class
+	// Deletion is handled in the parent class.
 }

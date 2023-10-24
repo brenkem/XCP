@@ -103,9 +103,9 @@ std::unique_ptr<IXCPMessage> XCPMaster::DeserializeMessage(std::vector<uint8_t>&
 
 	if (Packet)
 	{
-		std::vector<uint8_t>(data.begin() + m_MessageFactory->GetHeaderSize() + Packet->GetPacketSize() + m_MessageFactory->GetTailSize(), data.end()).swap(data); //Clear packet data from the buffer. Leaves the not-yet-deserialized data intact.
+		std::vector<uint8_t>(data.begin() + m_MessageFactory->GetHeaderSize() + Packet->GetPacketSize() + m_MessageFactory->GetTailSize(), data.end()).swap(data); // Clear packet data from the buffer. Leaves the not-yet-deserialized data intact.
 		IXCPMessage* MessageFrame = m_MessageFactory->CreateMessage(Packet);
-		//Pass decoded packets to the internal and external handlers.
+		// Pass decoded packets to the internal and external handlers.
 		if (m_MessageHandler)
 		{
 			Packet->Dispatch(*m_MessageHandler);
@@ -123,7 +123,7 @@ std::unique_ptr<IXCPMessage> XCPMaster::DeserializeMessage(std::vector<uint8_t>&
 	}
 	std::cout << "couldnt deserialise the message\n";
 	std::cout << "---------------------------------------------\n";
-	if (m_SentCommandQueue.size() > 0) //TODO: delete this after all packet types are handled correctly...
+	if (m_SentCommandQueue.size() > 0) // TODO: delete this after all packet types are handled correctly...
 	{
 		m_SentCommandQueue.pop();
 	}
@@ -149,6 +149,26 @@ XCP_API std::unique_ptr<IXCPMessage> XCPMaster::CreateShortUploadMessage(uint8_t
 	}
 
 	return std::unique_ptr<IXCPMessage>(m_MessageFactory->CreateMessage(m_PacketFactory->CreateShortUploadPacket(NumberOfElements, Address, AddressExtension, m_SlaveProperties.ByteOrder == 0)));
+}
+
+std::unique_ptr<IXCPMessage> XCPMaster::CreateDownloadMessage(std::vector<uint8_t>& data)
+{
+	if (!m_MessageFactory)
+	{
+		return nullptr;
+	}
+
+	return std::unique_ptr<IXCPMessage>(m_MessageFactory->CreateMessage(m_PacketFactory->CreateDownloadPacket(data)));
+}
+
+XCP_API std::unique_ptr<IXCPMessage> XCPMaster::CreateShortDownloadMessage(uint32_t Address, uint8_t AddressExtension, std::vector<uint8_t>& data)
+{
+	if (!m_MessageFactory)
+	{
+		return nullptr;
+	}
+
+	return std::unique_ptr<IXCPMessage>(m_MessageFactory->CreateMessage(m_PacketFactory->CreateShortDownloadPacket(Address, AddressExtension, data, m_SlaveProperties.ByteOrder == 0)));
 }
 
 XCP_API std::unique_ptr<IXCPMessage> XCPMaster::CreateFreeDaqMessage()

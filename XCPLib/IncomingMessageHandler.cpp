@@ -42,17 +42,17 @@ void IncomingMessageHandler::Handle(ConnectPositivePacket & Packet)
 	properties.PGM = ((Packet.GetResource()&ConnectPositivePacket::ResourceParameterBits::PGM) != 0);
 	properties.STIM = ((Packet.GetResource()&ConnectPositivePacket::ResourceParameterBits::STIM) != 0);
 
-    properties.ByteOrder = ((Packet.GetCommModeBasic()&ConnectPositivePacket::CommModeBasicBits::COMM_BYTE_ORDER) != 0);
+	properties.ByteOrder = ((Packet.GetCommModeBasic()&ConnectPositivePacket::CommModeBasicBits::COMM_BYTE_ORDER) != 0);
 	properties.AddressGranularity = ((Packet.GetCommModeBasic()&ConnectPositivePacket::CommModeBasicBits::ADDRESS_GRANULARITY_BOTH) >> 1);
 	properties.SlaveBlockMode = ((Packet.GetCommModeBasic()&ConnectPositivePacket::CommModeBasicBits::SLAVE_BLOCK_MODE) != 0);
 	properties.OptionalData = ((Packet.GetCommModeBasic()&ConnectPositivePacket::CommModeBasicBits::OPTIONAL) != 0);
 
 	properties.MaxCto = Packet.GetMaxCto();
-	properties.MaxDto = Packet.GetMaxDto(properties.ByteOrder); //at this point we have already set the ByteOrder
+	properties.MaxDto = Packet.GetMaxDto(properties.ByteOrder); // at this point we have already set the ByteOrder
 	properties.TransportLayerVersion = Packet.GetTransportLayerVersion();
 	properties.ProtocolLayerVersion = Packet.GetProtocolLayerVersion();
 
-	m_Master.SetSlaveProperties(properties); //write back Slave properties to the Master
+	m_Master.SetSlaveProperties(properties); // write back Slave properties to the Master
 
 	std::cout << std::hex << std::setw(2)
 		<< "PID: " << (int)Packet.GetPid()
@@ -331,6 +331,7 @@ void IncomingMessageHandler::Handle(DTO & Packet)
 
 void IncomingMessageHandler::Handle(ErrorCommandUnknown & Packet)
 {
+	(void)Packet; // Added this line to remove WARNING [Unused Parameter]
 	std::cout << "ERROR: Unknown command\n";
 }
 

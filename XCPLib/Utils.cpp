@@ -12,7 +12,7 @@ uint64_t XCP::Bitconverter::ToUint64(const std::vector<uint8_t>& bytes, bool Lit
 		}
 		else
 		{
-			//do byte-swap
+			// do byte-swap
 			return (((uint64_t)bytes[0]) << 56) | (((uint64_t)bytes[1]) << 48) | (((uint64_t)bytes[2]) << 40) | (((uint64_t)bytes[3]) << 32) |
 				(((uint64_t)bytes[4]) << 24) | (((uint64_t)bytes[5]) << 16) | (((uint64_t)bytes[6]) << 8) | bytes[7];
 		}
@@ -34,7 +34,7 @@ int64_t XCP::Bitconverter::ToInt64(const std::vector<uint8_t>& bytes, bool Littl
 		}
 		else
 		{
-			//do byte-swap
+			// do byte-swap
 			return (int64_t)((((uint64_t)bytes[0]) << 56) | (((uint64_t)bytes[1]) << 48) | (((uint64_t)bytes[2]) << 40) | (((uint64_t)bytes[3]) << 32) |
 				(((uint64_t)bytes[4]) << 24) | (((uint64_t)bytes[5]) << 16) | (((uint64_t)bytes[6]) << 8) | bytes[7]);
 		}
@@ -55,7 +55,7 @@ uint32_t XCP::Bitconverter::ToUint32(const std::vector<uint8_t>& bytes, bool Lit
 		}
 		else
 		{
-			//do byte-swap
+			// do byte-swap
 			return (((uint32_t)bytes[0]) << 24) | (((uint32_t)bytes[1]) << 16) | (((uint32_t)bytes[2]) << 8) | bytes[3];
 		}
 	}
@@ -75,7 +75,7 @@ int32_t XCP::Bitconverter::ToInt32(const std::vector<uint8_t>& bytes, bool Littl
 		}
 		else
 		{
-			//do byte-swap
+			// do byte-swap
 			return (int32_t)((((uint32_t)bytes[0]) << 24) | (((uint32_t)bytes[1]) << 16) | (((uint32_t)bytes[2]) << 8) | bytes[3]);
 		}
 	}
@@ -95,7 +95,7 @@ uint16_t XCP::Bitconverter::ToUint16(const std::vector<uint8_t>& bytes, bool Lit
 		}
 		else
 		{
-			//do byte-swap
+			// do byte-swap
 			return ((((uint16_t)bytes[0]) << 8) | ((uint32_t)bytes[1]));
 		}
 	}
@@ -115,7 +115,7 @@ int16_t XCP::Bitconverter::ToInt16(const std::vector<uint8_t>& bytes, bool Littl
 		}
 		else
 		{
-			//do byte-swap
+			// do byte-swap
 			return (int16_t)((((uint16_t)bytes[0]) << 8) | ((uint32_t)bytes[1]));
 		}
 	}
@@ -127,12 +127,16 @@ int16_t XCP::Bitconverter::ToInt16(const std::vector<uint8_t>& bytes, bool Littl
 
 float XCP::Bitconverter::ToFloat(const std::vector<uint8_t>& bytes, bool LittleEndian)
 {
+	(void)bytes; // Added this line to remove WARNING [Unused Parameter]
+	(void)LittleEndian; // Added this line to remove WARNING [Unused Parameter]
 	throw - 1;
 	return 0.0f;
 }
 
 double XCP::Bitconverter::ToDouble(const std::vector<uint8_t>& bytes, bool LittleEndian)
 {
+	(void)bytes; // Added this line to remove WARNING [Unused Parameter]
+	(void)LittleEndian; // Added this line to remove WARNING [Unused Parameter]
 	throw - 1;
 	return 0.0;
 }

@@ -3,30 +3,30 @@
 #include "ResponsePacket.h"
 
 
-// Upload from slave to master
-class UploadPacket final :
+// Download from master to slave
+class DownloadPacket final :
 	public CommandPacket
 {
 public:
 	// Number of dataelements: 1..[MAXCTO/AG - 1] in standardmode, 1..255 in block mode
-	UploadPacket(uint8_t NumberOfDataElements);
-	virtual ~UploadPacket();
+	DownloadPacket(const std::vector<uint8_t>& Data);
+	virtual ~DownloadPacket();
 	void SetNumberOfDataElements(uint8_t num);
 	uint8_t GetNumberOfDataElements();
 };
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 
-class UploadResponse final : public ResponsePacket
+class DownloadResponse final : public ResponsePacket
 {
 private:
 	uint8_t m_AG;
 	uint8_t m_ElementSizeInBytes;
 	uint8_t m_NumberOfElements;
-	UploadResponse(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t AG);
+	DownloadResponse(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t AG);
 public:
-	~UploadResponse();
-	static UploadResponse* Deserialize(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t AG);
+	~DownloadResponse();
+	static DownloadResponse* Deserialize(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t AG);
 	uint8_t GetNumberOfElements();
 	template<typename T>
 	T GetElement(uint8_t id, bool LittleEndian) = delete;
@@ -34,13 +34,13 @@ public:
 	virtual void Dispatch(IIncomingMessageHandler& Handler);
 };
 
-template<> inline uint8_t UploadResponse::GetElement<uint8_t>(uint8_t id, bool LittleEndian)
+template<> inline uint8_t DownloadResponse::GetElement<uint8_t>(uint8_t id, bool LittleEndian)
 {
 	(void)LittleEndian; // Added this line to remove WARNING [Unused Parameter]
 	return m_Data[id];
 };
 
-template<> inline uint16_t UploadResponse::GetElement<uint16_t>(uint8_t id, bool LittleEndian)
+template<> inline uint16_t DownloadResponse::GetElement<uint16_t>(uint8_t id, bool LittleEndian)
 {
 	uint16_t t1, t2;
 	t1 = m_Data[1 + id * 2];
@@ -57,7 +57,7 @@ template<> inline uint16_t UploadResponse::GetElement<uint16_t>(uint8_t id, bool
 	}
 };
 
-template<> inline uint32_t UploadResponse::GetElement<uint32_t>(uint8_t id, bool LittleEndian)
+template<> inline uint32_t DownloadResponse::GetElement<uint32_t>(uint8_t id, bool LittleEndian)
 {
 	if (LittleEndian)
 	{
@@ -72,18 +72,19 @@ template<> inline uint32_t UploadResponse::GetElement<uint32_t>(uint8_t id, bool
 
 //-------------------------------------------------------------------------------------------------------------------------
 
-class ShortUploadPacket final : public CommandPacket
+class ShortDownloadPacket final : public CommandPacket
 {
 	enum BytePositions
 	{
 		NUMBER_OF_DATA_ELEMENTS = 0,
 		RESERVED = 1,
 		ADDRESS_EXTENSION = 2,
-		ADDRESS = 3, // 4 bytes!
+		ADDRESS = 3,
+		DATA = 7
 	};
 public:
-	ShortUploadPacket();
-	virtual ~ShortUploadPacket();
+	ShortDownloadPacket(const std::vector<uint8_t>& Data);
+	virtual ~ShortDownloadPacket();
 	void SetAddress(uint32_t Address, bool LittleEndian);
 	uint32_t GetAddress(bool LittleEndian);
 	uint8_t GetAddressExtension();

@@ -48,6 +48,7 @@ uint8_t UnlockPacket::GetRemainingKeyLength()
 
 UnlockResponsePacket::UnlockResponsePacket(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t TailSize)
 {
+	(void)TailSize; // Added this line to remove WARNING [Unused Parameter]
 	m_DataLength = 1;
 	m_PacketSize = m_DataLength + 1;
 	m_Data = new uint8_t[m_DataLength];

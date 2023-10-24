@@ -91,6 +91,8 @@ public:
 	XCP_API std::unique_ptr<IXCPMessage> DeserializeMessage(std::vector<uint8_t>& data);
 	XCP_API std::unique_ptr<IXCPMessage> CreateUploadMessage(uint8_t NumberOfElements);
 	XCP_API std::unique_ptr<IXCPMessage> CreateShortUploadMessage(uint8_t NumberOfElements, uint32_t Address, uint8_t AddressExtension);
+	XCP_API std::unique_ptr<IXCPMessage> CreateDownloadMessage(std::vector<uint8_t>& data);
+	XCP_API std::unique_ptr<IXCPMessage> CreateShortDownloadMessage(uint32_t Address, uint8_t AddressExtension, std::vector<uint8_t>& data);
 	XCP_API std::unique_ptr<IXCPMessage> CreateFreeDaqMessage();
 	XCP_API std::unique_ptr<IXCPMessage> CreateAllocDaqMessage(uint16_t DaqCount);
 	XCP_API std::unique_ptr<IXCPMessage> CreateAllocOdtMessage(uint16_t DaqListNumber, uint8_t OdtCount);

@@ -27,7 +27,7 @@ ConnectPositivePacket::ConnectPositivePacket(const std::vector<uint8_t>& Data, u
 	{
 		for (unsigned int i = 0; i < m_DataLength; i++)
 		{
-			m_Data[i] = Data[HeaderSize + i + 1]; //Here the Data vector also stores the TCP packet header (first 4 bytes) and the PID value (1 byte), so the offset of the real parameters start from the sixth byte (in case of TCP packets)
+			m_Data[i] = Data[HeaderSize + i + 1]; // Here the Data vector also stores the TCP packet header (first 4 bytes) and the PID value (1 byte), so the offset of the real parameters start from the sixth byte (in case of TCP packets)
 		}
 	}
 	//	else
@@ -66,7 +66,7 @@ uint16_t ConnectPositivePacket::GetMaxDto(bool LittleEndian)
 	}
 	else
 	{
-		//do byte-swap
+		// do byte-swap
 		return (((uint16_t)m_Data[BytePositions::MAX_DTO]) << 8) | m_Data[BytePositions::MAX_DTO + 1];
 	}
 }

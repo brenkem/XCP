@@ -459,6 +459,7 @@ GetDaqProcessorInfo::~GetDaqProcessorInfo()
 
 GetDaqProcessorInfoResponse::GetDaqProcessorInfoResponse(const std::vector<uint8_t>& Data, uint8_t HeaderSize, uint8_t TailSize)
 {
+	(void)TailSize; // Added this line to remove WARNING [Unused Parameter]
 	m_PacketSize = 8;
 	m_DataLength = 7;
 	m_Data = new uint8_t[m_DataLength];

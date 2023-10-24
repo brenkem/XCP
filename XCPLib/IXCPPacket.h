@@ -22,6 +22,7 @@ public:
 	uint8_t GetPid();
 	virtual void Dispatch(IIncomingMessageHandler& Handler)
 	{
+		(void)Handler; // Added this line to remove WARNING [ Unused Parameter ]
 		std::cout << "Not implemented dispatch for this packet type\n";
 	}
 };

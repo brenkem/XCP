@@ -1,5 +1,5 @@
 #ifdef _WIN32
-  #ifdef XCPLIB_EXPORTS //XCPLIB_EXPORTS macro is defined in the project settings
+  #ifdef XCPLIB_EXPORTS // XCPLIB_EXPORTS macro is defined in the project settings
   #define XCP_API    __declspec(dllexport)
   #else
   #define XCP_API    __declspec(dllimport)

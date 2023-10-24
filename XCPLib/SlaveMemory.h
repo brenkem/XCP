@@ -30,14 +30,14 @@ public:
 	XCP_API ODTEntry(uint32_t Address, uint8_t AddressExtension, uint8_t Length);
 	XCP_API ODTEntry(const ODTEntry& o);
 	XCP_API virtual ~ODTEntry();
-	XCP_API const uint32_t GetAddress() const;
+	XCP_API uint32_t GetAddress() const;
 	XCP_API void SetAddress(uint32_t Address);
-	XCP_API const uint8_t GetAddressExtension() const;
+	XCP_API uint8_t GetAddressExtension() const;
 	XCP_API void SetAddressExtension(uint8_t AddressExtension);
-	XCP_API const uint8_t GetLength() const;
+	XCP_API uint8_t GetLength() const;
 	XCP_API void SetLength(uint8_t Length);
 	XCP_API void SetDataType(uint8_t DataType);
-	XCP_API const uint8_t GetDataType() const;
+	XCP_API uint8_t GetDataType() const;
 };
 
 class ODT
@@ -51,9 +51,9 @@ public:
 	XCP_API virtual ~ODT();
 	XCP_API void AddEntry(ODTEntry Entry);
 	XCP_API ODTEntry& GetEntry(uint32_t Index);
-	XCP_API const uint32_t GetODTSize() const;
-	XCP_API const uint32_t GetNumberOfEntries() const;
-	XCP_API const bool IsFirst() const;
+	XCP_API uint32_t GetODTSize() const;
+	XCP_API uint32_t GetNumberOfEntries() const;
+	XCP_API bool IsFirst() const;
 	XCP_API void SetFirst(bool First);
 };
 
@@ -74,21 +74,21 @@ public:
 	XCP_API void AddODT(ODT Odt);
 	XCP_API ODT& GetOdt(uint32_t Index);
 	XCP_API void SetMode(uint8_t Mode);
-	XCP_API const uint8_t GetMode() const;
-	XCP_API const uint16_t GetEventChannel() const;
-	XCP_API const uint8_t GetPrescaler() const;
-	XCP_API const uint8_t GetPriority() const;
+	XCP_API uint8_t GetMode() const;
+	XCP_API uint16_t GetEventChannel() const;
+	XCP_API uint8_t GetPrescaler() const;
+	XCP_API uint8_t GetPriority() const;
 	XCP_API void SetEventChannel(uint16_t EventChannel);
 	XCP_API void SetPrescaler(uint8_t Prescaler);
 	XCP_API void SetPriority(uint8_t Priority);
-	XCP_API const uint16_t GetNumberOfODTs() const;
+	XCP_API uint16_t GetNumberOfODTs() const;
 	XCP_API uint8_t GetFirstPid();
 	XCP_API void SetFirstPid(uint8_t FirstPid);
 	XCP_API void SetLastTimestamp(uint32_t Timestamp);
 	XCP_API uint32_t GetLastTimestamp();
 };
 
-//TODO: write an iterator for this class
+// TODO: write an iterator for this class
 
 class DAQLayout
 {
@@ -102,7 +102,7 @@ public:
 	XCP_API void AddDAQ(DAQ daq);
 	XCP_API void SetDAQ(unsigned int id,DAQ daq);
 	XCP_API DAQ& GetDAQ(uint32_t Index);
-	XCP_API const uint16_t GetNumberOfDAQLists() const;
+	XCP_API uint16_t GetNumberOfDAQLists() const;
 	XCP_API int32_t CalculateDAQNumberFromAbsolutePID(uint8_t PID);
 	XCP_API int32_t CalculateODTNumberFromAbsolutePID(uint8_t PID);
 	XCP_API ODT& GetODTFromAbsolutePID(uint8_t PID);

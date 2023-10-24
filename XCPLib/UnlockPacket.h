@@ -9,7 +9,7 @@ private:
 	enum BytePositions
 	{
 		REMAINING_KEY_LENGTH = 0x0,
-		KEY = 0x1, //1..maxcto-2
+		KEY = 0x1, // 1..maxcto-2
 	};
 public:
 	UnlockPacket(const std::vector<uint8_t>& Key, uint8_t StartIndex, uint8_t MaxCto);
