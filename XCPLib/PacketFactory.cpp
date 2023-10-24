@@ -8,6 +8,7 @@
 #include "DownloadPacket.h"
 #include "DAQPackets.h"
 #include "ErrorAccessLockedPacket.h"
+#include "ErrorAccessDeniedPacket.h"
 #include "ErrorOutOfRangePacket.h"
 #include "ErrorSequencePacket.h"
 #include "ErrorMemoryOverflowPacket.h"
@@ -79,6 +80,9 @@ IXCPPacket * PacketFactory::CreateErrorPacket(const std::vector<uint8_t>& data, 
 			break;
 		case ErrorCodes::ERR_ACCESS_LOCKED:
 			return new ErrorAccessLockedPacket();
+			break;
+		case ErrorCodes::ERR_ACCESS_DENIED:
+			return new ErrorAccessDeniedPacket();
 			break;
 		case ErrorCodes::ERR_OUT_OF_RANGE:
 			return new ErrorOutOfRangePacket();

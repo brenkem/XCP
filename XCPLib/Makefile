@@ -58,6 +58,7 @@ SOURCES       = CANMessage.cpp \
 		DisconnectPacket.cpp \
 		DTO.cpp \
 		ErrorAccessLockedPacket.cpp \
+		ErrorAccessDeniedPacket.cpp \
 		ErrorCommandUnknown.cpp \
 		ErrorMemoryOverflowPacket.cpp \
 		ErrorOutOfRangePacket.cpp \
@@ -87,6 +88,7 @@ OBJECTS       = debug/CANMessage.o \
 		debug/DisconnectPacket.o \
 		debug/DTO.o \
 		debug/ErrorAccessLockedPacket.o \
+		debug/ErrorAccessDeniedPacket.o \
 		debug/ErrorCommandUnknown.o \
 		debug/ErrorMemoryOverflowPacket.o \
 		debug/ErrorOutOfRangePacket.o \
@@ -117,6 +119,7 @@ DIST          = CANMessageFactory.h \
 		DisconnectPacket.h \
 		DTO.h \
 		ErrorAccessLockedPacket.h \
+		ErrorAccessDeniedPacket.h \
 		ErrorCommandUnknown.h \
 		ErrorMemoryOverflowPacket.h \
 		ErrorOutOfRangePacket.h \
@@ -153,6 +156,7 @@ DIST          = CANMessageFactory.h \
 		DisconnectPacket.cpp \
 		DTO.cpp \
 		ErrorAccessLockedPacket.cpp \
+		ErrorAccessDeniedPacket.cpp \
 		ErrorCommandUnknown.cpp \
 		ErrorMemoryOverflowPacket.cpp \
 		ErrorOutOfRangePacket.cpp \
@@ -219,8 +223,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents CANMessageFactory.h CANMessage.h CommandPacket.h ConnectPacket.h ConnectPositivePacket.h DAQPackets.h DisconnectPacket.h DTO.h ErrorAccessLockedPacket.h ErrorCommandUnknown.h ErrorMemoryOverflowPacket.h ErrorOutOfRangePacket.h ErrorPacket.h ErrorSequencePacket.h GetSeedPacket.h GetStatusPacket.h ICTO.h IIncomingMessageHandler.h IMessageFactory.h IncomingMessageHandler.h IXCPHeader.h IXCPMessage.h IXCPPacket.h IXCPTail.h PacketFactory.h ResponsePacket.h SetMTAPacket.h SlaveMemory.h SynchPacket.h TCPHeader.h TCPMessageFactory.h TCPMessage.h UnlockPacket.h UploadPacket.h DownloadPacket.h Utils.h XCPMaster.h XCPApiDecl.h $(DISTDIR)/
-	$(COPY_FILE) --parents CANMessage.cpp CANMessageFactory.cpp ConnectPacket.cpp ConnectPositivePacket.cpp DAQPackets.cpp DisconnectPacket.cpp DTO.cpp ErrorAccessLockedPacket.cpp ErrorCommandUnknown.cpp ErrorMemoryOverflowPacket.cpp ErrorOutOfRangePacket.cpp ErrorSequencePacket.cpp GetSeedPacket.cpp GetStatusPacket.cpp IncomingMessageHandler.cpp IXCPMessage.cpp IXCPPacket.cpp PacketFactory.cpp SetMTAPacket.cpp SlaveMemory.cpp SynchPacket.cpp TCPHeader.cpp TCPMessage.cpp TCPMessageFactory.cpp UnlockPacket.cpp UploadPacket.cpp DownloadPacket.cpp Utils.cpp XCPMaster.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents CANMessageFactory.h CANMessage.h CommandPacket.h ConnectPacket.h ConnectPositivePacket.h DAQPackets.h DisconnectPacket.h DTO.h ErrorAccessLockedPacket.h ErrorAccessDeniedPacket.h ErrorCommandUnknown.h ErrorMemoryOverflowPacket.h ErrorOutOfRangePacket.h ErrorPacket.h ErrorSequencePacket.h GetSeedPacket.h GetStatusPacket.h ICTO.h IIncomingMessageHandler.h IMessageFactory.h IncomingMessageHandler.h IXCPHeader.h IXCPMessage.h IXCPPacket.h IXCPTail.h PacketFactory.h ResponsePacket.h SetMTAPacket.h SlaveMemory.h SynchPacket.h TCPHeader.h TCPMessageFactory.h TCPMessage.h UnlockPacket.h UploadPacket.h DownloadPacket.h Utils.h XCPMaster.h XCPApiDecl.h $(DISTDIR)/
+	$(COPY_FILE) --parents CANMessage.cpp CANMessageFactory.cpp ConnectPacket.cpp ConnectPositivePacket.cpp DAQPackets.cpp DisconnectPacket.cpp DTO.cpp ErrorAccessLockedPacket.cpp ErrorAccessDeniedPacket.cpp ErrorCommandUnknown.cpp ErrorMemoryOverflowPacket.cpp ErrorOutOfRangePacket.cpp ErrorSequencePacket.cpp GetSeedPacket.cpp GetStatusPacket.cpp IncomingMessageHandler.cpp IXCPMessage.cpp IXCPPacket.cpp PacketFactory.cpp SetMTAPacket.cpp SlaveMemory.cpp SynchPacket.cpp TCPHeader.cpp TCPMessage.cpp TCPMessageFactory.cpp UnlockPacket.cpp UploadPacket.cpp DownloadPacket.cpp Utils.cpp XCPMaster.cpp $(DISTDIR)/
 
 
 clean: compiler_clean
@@ -335,6 +339,14 @@ debug/ErrorAccessLockedPacket.o: ErrorAccessLockedPacket.cpp ErrorAccessLockedPa
 		XCPApiDecl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/ErrorAccessLockedPacket.o ErrorAccessLockedPacket.cpp
 
+debug/ErrorAccessDeniedPacket.o: ErrorAccessDeniedPacket.cpp ErrorAccessDeniedPacket.h \
+		ErrorPacket.h \
+		ICTO.h \
+		IXCPPacket.h \
+		IIncomingMessageHandler.h \
+		XCPApiDecl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/ErrorAccessDeniedPacket.o ErrorAccessDeniedPacket.cpp
+
 debug/ErrorCommandUnknown.o: ErrorCommandUnknown.cpp ErrorCommandUnknown.h \
 		ErrorPacket.h \
 		ICTO.h \
@@ -409,6 +421,7 @@ debug/IncomingMessageHandler.o: IncomingMessageHandler.cpp IncomingMessageHandle
 		UploadPacket.h \
 		DownloadPacket.h \
 		ErrorAccessLockedPacket.h \
+		ErrorAccessDeniedPacket.h \
 		ErrorPacket.h \
 		ErrorOutOfRangePacket.h \
 		ErrorSequencePacket.h \
@@ -451,6 +464,7 @@ debug/PacketFactory.o: PacketFactory.cpp PacketFactory.h \
 		UploadPacket.h \
 		DownloadPacket.h \
 		ErrorAccessLockedPacket.h \
+		ErrorAccessDeniedPacket.h \
 		ErrorOutOfRangePacket.h \
 		ErrorSequencePacket.h \
 		ErrorMemoryOverflowPacket.h \

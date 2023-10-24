@@ -24,6 +24,7 @@ public:
 	virtual void Handle(SynchResponsePacket& Packet);
 	virtual void Handle(UploadResponse& Packet);
 	virtual void Handle(ErrorAccessLockedPacket& Packet);
+	virtual void Handle(ErrorAccessDeniedPacket& Packet);
 	virtual void Handle(ErrorOutOfRangePacket& Packet);
 	virtual void Handle(ErrorSequencePacket& Packet);
 	virtual void Handle(ErrorMemoryOverflowPacket& Packet);

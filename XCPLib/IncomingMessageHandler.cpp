@@ -6,6 +6,7 @@
 #include "GetStatusPacket.h"
 #include "UploadPacket.h"
 #include "ErrorAccessLockedPacket.h"
+#include "ErrorAccessDeniedPacket.h"
 #include "ErrorOutOfRangePacket.h"
 #include "ErrorSequencePacket.h"
 #include "ErrorMemoryOverflowPacket.h"
@@ -100,7 +101,12 @@ void IncomingMessageHandler::Handle(UploadResponse & Packet)
 
 void IncomingMessageHandler::Handle(ErrorAccessLockedPacket & Packet)
 {
-	std::cout << "Error, Access Denied, Seed & Key is required\n";
+	std::cout << "Error, Access Locked, Seed & Key is required\n";
+}
+
+void IncomingMessageHandler::Handle(ErrorAccessDeniedPacket & Packet)
+{
+	std::cout << "ERROR: Access Denied, memory not accessible\n";
 }
 
 void IncomingMessageHandler::Handle(ErrorOutOfRangePacket & Packet)

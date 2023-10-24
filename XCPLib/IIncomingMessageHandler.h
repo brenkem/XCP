@@ -7,6 +7,7 @@ class GetStatusResponsePacket;
 class SynchResponsePacket;
 class UploadResponse;
 class ErrorAccessLockedPacket;
+class ErrorAccessDeniedPacket;
 class ErrorOutOfRangePacket;
 class ErrorSequencePacket;
 class ErrorMemoryOverflowPacket;
@@ -28,6 +29,7 @@ public:
 	virtual void Handle(SynchResponsePacket& Packet) = 0;
 	virtual void Handle(UploadResponse& Packet) = 0;
 	virtual void Handle(ErrorAccessLockedPacket& Packet) = 0;
+	virtual void Handle(ErrorAccessDeniedPacket& Packet) = 0;
 	virtual void Handle(ErrorOutOfRangePacket& Packet) = 0;
 	virtual void Handle(ErrorSequencePacket& Packet) = 0;
 	virtual void Handle(ErrorMemoryOverflowPacket& Packet) = 0;
